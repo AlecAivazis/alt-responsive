@@ -6,7 +6,8 @@ import {mapValues, transform, keys} from 'lodash'
  * @arg {object} breakpoints - Hash of custom breakpoints.
  * @returns {class} Responsive store class to be passed to `alt.createStore`.
  */
-function create_responsive_store_class(breakpoints) {
+export default function create_responsive_store_class(breakpoints) {
+
     class ResponsiveStore {
         constructor() {
             // set the breakpoint variables
@@ -90,8 +91,5 @@ function create_responsive_store_class(breakpoints) {
 
     return ResponsiveStoreClass
 }
-
-
-export default create_responsive_store_class
 
 // end of file
