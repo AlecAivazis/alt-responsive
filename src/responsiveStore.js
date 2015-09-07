@@ -6,7 +6,8 @@ import {transform, keys} from 'lodash'
  * @arg {object} [options]  - Hash of custom breakpoints.
  * @returns {class} Responsive store class to be passed to `alt.createStore`.
  */
-export default function create_responsive_store_class(options) {
+// export the factory (but not as default)
+export function create_responsive_store(options) {
     // use `options` as hash of breakpoints
     let breakpoints = options
     // if `options` was not provided
@@ -104,5 +105,10 @@ export default function create_responsive_store_class(options) {
 
     return ResponsiveStore
 }
+
+
+// by default, export the default ResponsiveStore
+export default create_responsive_store()
+
 
 // end of file
