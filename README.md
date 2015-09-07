@@ -22,12 +22,11 @@ import alt from 'my-alt-import'
 import create_responsive_store from 'alt-responsive'
 
 // define your own breakpoints
-// NOTE: these must be in ascending order
 const breakpoints = {
-  small: 300,
-  medium: 600,
-  big: 890,
-  huge: 990,
+  small: 320, 
+  medium: 640,
+  big: 960,
+  huge: 1024,
 }
 
 // pass your breakpoints to the store factory
