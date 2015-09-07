@@ -1,6 +1,14 @@
 # alt-responsive
 
-An alt store for easily creating responsive designs in a flux architecture
+A flux store for easily creating responsive designs in an alt application
+
+
+## Why Use a Flux Store?
+
+There are many solutions for cleanly handling responsive designs in React applications. One common paradigm is to wrap a given component in another which is reponsible for handling the behavior. While this at first seems good and the "react way", it quickly leads to a lot of biolerplate code in a single component. Also, depending on the implementation, it is possible that many copies of the responsive container would create many different `resize` handlers. 
+
+Using a flux store not only reduces the overall noise in a component, but also garuentees that only a single event listener is waiting for resize.
+
 
 ## Creating the Store
 
@@ -29,6 +37,7 @@ export default alt.createStore(ResponsiveStoreClass)
 ```
 
 Now your store is ready to use. 
+
 
 ## Responding to Browser Width
 
@@ -85,9 +94,3 @@ class MyComponent extends React.Component {
     }
 }
 ```
-
-## Why Use a Flux Store?
-
-There are many solutions for cleanly handling responsive designs in React applications. One common paradigm is to wrap a given component in another which is reponsible for handling the behavior. While this at first seems good and the "react way", it quickly leads to a lot of biolerplate code in a single component. Also, depending on the implementation, it is possible that many copies of the responsive container would create many different `resize` handlers. 
-
-Using a flux store not only reduces the overall noise in a component, but also garuentees that only a single event listener is waiting for resize.
