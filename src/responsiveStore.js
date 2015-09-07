@@ -23,7 +23,7 @@ class ResponsiveStore {
         // set the initial values
         this.browser_width = browser_width
         this.current_media_type = this.get_current_media_type(browser_width)
-        // create a dictionary that tracks wether the browser is less than a given breakpoint
+        // create a dictionary that tracks wether the browser is less/greater than a given breakpoint
         this.browser_less_than = this.get_less_than(browser_width)
         this.browser_greater_than = this.get_greater_than(browser_width)
 
