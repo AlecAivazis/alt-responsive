@@ -11,7 +11,7 @@ First create a store based on custom breakpoints using the provided factory. The
 // import your singleton alt instance
 import alt from 'my-alt-import'
 // import our factory
-import create_responsive_store from 'alt-responsive'
+import create_responsive_store_class from 'alt-responsive'
 
 // define your own breakpoints
 // NOTE: these must be in ascending order
