@@ -5,7 +5,7 @@ A flux store for easily creating responsive designs in an alt application
 
 ## Why Use a Flux Store for Responsive Behavior?
 
-There are many solutions for cleanly handling responsive designs in React applications. One common paradigm is to wrap a given component in another which is responsible for handling the behavior. While this at first seems good and the "react way", it quickly leads to a lot of boilerplate code in a single component. Also, depending on the implementation, it is possible that many copies of the responsive container would create many different `resize` handlers.
+There are many solutions for cleanly handling responsive designs in React applications. One common approach is to wrap a component in another component which is responsible for handling the behavior and passing the information down as a prop. While this at first seems good and the "react way", as the behavior gets more complicated, this quickly leads to a lot of boilerplate code in a single component.  Also, depending on the implementation, it is possible that many copies of the responsive wrapper would create many different `resize` handlers.
 
 Using a flux store not only reduces the overall noise in a component, but also guarantees that only a single event listener is waiting for resize.
 
