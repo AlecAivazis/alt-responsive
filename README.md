@@ -5,28 +5,46 @@ A flux store for easily creating responsive designs in an alt application
 
 ## Why Use a Flux Store?
 
-There are many solutions for cleanly handling responsive designs in React applications. One common paradigm is to wrap a given component in another which is reponsible for handling the behavior. While this at first seems good and the "react way", it quickly leads to a lot of biolerplate code in a single component. Also, depending on the implementation, it is possible that many copies of the responsive container would create many different `resize` handlers. 
+There are many solutions for cleanly handling responsive designs in React applications. One common paradigm is to wrap a given component in another which is reponsible for handling the behavior. While this at first seems good and the "react way", it quickly leads to a lot of biolerplate code in a single component. Also, depending on the implementation, it is possible that many copies of the responsive container would create many different `resize` handlers.
 
 Using a flux store not only reduces the overall noise in a component, but also garuentees that only a single event listener is waiting for resize.
 
 
 ## Creating the Store
 
-First create a store based on custom breakpoints using the provided factory. The names of these breakpoints will be used to identify them at a later time.
+All you need to do is wrap our store in your alt instance's `createStore` method.
 ```js
 // stores/ResponsiveStore.js
 
 // import your singleton alt instance
 import alt from 'my-alt-import'
 // import our factory
-import create_responsive_store from 'alt-responsive'
+import ResponsiveStore from 'alt-responsive'
+
+// pass the store class to alt's wrapper    
+export default alt.createStore(ResponsiveStore)
+```
+
+Now your store is ready to use.
+
+
+### Using Custom Breakpoints
+
+To use your own custom breakpoints, import our `create_responsive_store` factory, and pass it a hash of custom breakpoints.  The names of these breakpoints will be used to identify them in your views.
+```js
+// stores/ResponsiveStore.js
+
+// import your singleton alt instance
+import alt from 'my-alt-import'
+// import our factory
+import {create_responsive_store} from 'alt-responsive'
 
 // define your own breakpoints
 const breakpoints = {
-  small: 320, 
-  medium: 640,
-  big: 960,
-  huge: 1024,
+    small: 320,
+    medium: 640,
+    big: 960,
+    huge: 1024,
 }
 
 // pass your breakpoints to the store factory
@@ -35,7 +53,7 @@ let ResponsiveStore = create_responsive_store(breakpoints)
 export default alt.createStore(ResponsiveStoreClass)
 ```
 
-Now your store is ready to use. 
+Now your store is ready to use with custom breakpoints.
 
 
 ## Responding to Browser Width
@@ -43,8 +61,8 @@ Now your store is ready to use.
 The ReponsiveStore provides three attributes to handle responsive behavior (passed in as props to the particular component):
 
 * `current_media_type` is a string whose value is equal to the largest breakpoint category that the browser satisfies.
-* `browser_less_than` is an object of booleans that describe wether the browser is currently less than a particular breakpoint
-* `browser_greater_than` is an object of booleans that describe wether the browser is currently greater than a particular breakpoint
+* `browser_less_than` is an object of booleans that describe whether the browser is currently less than a particular breakpoint
+* `browser_greater_than` is an object of booleans that describe whether the browser is currently greater than a particular breakpoint
 
 For example,
 ```js
@@ -85,7 +103,7 @@ class MyComponent extends React.Component {
         } else {
             return (
               <p>
-                You will only see this on screens above medium size. 
+                You will only see this on screens above medium size.
                 The browsers current media_type is {this.props.current_media_type}.
               </p>
             )
