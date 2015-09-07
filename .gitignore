@@ -1,0 +1,11 @@
+# dependencies
+node_modules
+
+# built source files
+build
+
+# thanks apple
+**/.DS_Store
+
+
+# end of file
