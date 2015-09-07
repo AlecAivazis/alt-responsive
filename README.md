@@ -5,14 +5,14 @@ A flux store for easily creating responsive designs in an alt application
 
 ## Why Use a Flux Store?
 
-There are many solutions for cleanly handling responsive designs in React applications. One common paradigm is to wrap a given component in another which is reponsible for handling the behavior. While this at first seems good and the "react way", it quickly leads to a lot of biolerplate code in a single component. Also, depending on the implementation, it is possible that many copies of the responsive container would create many different `resize` handlers.
+There are many solutions for cleanly handling responsive designs in React applications. One common paradigm is to wrap a given component in another which is responsible for handling the behavior. While this at first seems good and the "react way", it quickly leads to a lot of boilerplate code in a single component. Also, depending on the implementation, it is possible that many copies of the responsive container would create many different `resize` handlers.
 
-Using a flux store not only reduces the overall noise in a component, but also garuentees that only a single event listener is waiting for resize.
+Using a flux store not only reduces the overall noise in a component, but also guarantees that only a single event listener is waiting for resize.
 
 
 ## Creating the Store
 
-All you need to do is wrap our store in your alt instance's `createStore` method.
+All you need to do is wrap our class in your alt instance's `createStore` method.
 ```js
 // stores/ResponsiveStore.js
 
@@ -49,6 +49,7 @@ const breakpoints = {
 
 // pass your breakpoints to the store factory
 let ResponsiveStore = create_responsive_store(breakpoints)
+
 // pass the store class to alt's wrapper    
 export default alt.createStore(ResponsiveStoreClass)
 ```
@@ -58,13 +59,14 @@ Now your store is ready to use with custom breakpoints.
 
 ## Responding to Browser Width
 
-The ReponsiveStore provides three attributes to handle responsive behavior (passed in as props to the particular component):
+The `ReponsiveStore` provides three attributes to handle responsive behavior (passed in as props to the particular component):
 
-* `current_media_type` is a string whose value is equal to the largest breakpoint category that the browser satisfies.
-* `browser_less_than` is an object of booleans that describe whether the browser is currently less than a particular breakpoint
-* `browser_greater_than` is an object of booleans that describe whether the browser is currently greater than a particular breakpoint
+* `current_media_type`: (*string*) The **largest** breakpoint category that the browser satisfies.
+* `browser_less_than`: (*object*) Hash of booleans that describe whether the browser is currently less than a particular breakpoint.
+* `browser_greater_than`: (*object*) Hash of booleans that describe whether the browser is currently greater than a particular breakpoint.
 
 For example,
+
 ```js
 // MyComponent.js
 
@@ -88,26 +90,21 @@ class MyComponent extends React.Component {
 
 
     render() {
+        let message = `The viewport's current media type is: ${this.props.current_media_type}.  `
+
         if (this.props.browser_less_than.small) {
-            return (
-              <p>
-                You will only see this on browser width less than the small breakpoint!
-              </p>
-            )
+            message += 'Secret message for viewports smaller than than the "small" breakpoint!'
         } else if (this.props.browser_less_than.medium) {
-            return (
-              <p>
-                You will only see this on screens less than the medium breakpoint!
-              </p>
-            )
+            message += 'Secret message for viewports between the "small" and "medium" breakpoints!'
         } else {
-            return (
-              <p>
-                You will only see this on screens above medium size.
-                The browsers current media_type is {this.props.current_media_type}.
-              </p>
-            )
+            message += 'Message for viewports greater than the "medium" breakpoint.'
         }
+
+        return (
+            <p>
+                {message}
+            </p>
+        )
     }
 }
 ```
