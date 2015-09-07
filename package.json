@@ -9,6 +9,10 @@
   },
   "author": "Alec Aivazis",
   "peerDependencies": {
-    "tea": "2.x"
+    "alt": "^0.16.10"
   },
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "mediaquery": "0.0.3"
+  }
 }
