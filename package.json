@@ -1,6 +1,6 @@
 {
   "name": "alt-responsive",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "An alt store for easily creating responsive designs in a flux architecture.",
   "main": "build/responsiveStore.js",
   "repository": {
