@@ -3,10 +3,24 @@ import MediaQuery from 'mediaquery'
 import {transform, keys} from 'lodash'
 
 /**
- * @arg {object} breakpoints - Hash of custom breakpoints.
+ * @arg {object} [options]  - Hash of custom breakpoints.
  * @returns {class} Responsive store class to be passed to `alt.createStore`.
  */
-export default function create_responsive_store_class(breakpoints) {
+export default function create_responsive_store_class(options) {
+    // use `options` as hash of breakpoints
+    let breakpoints = options
+    // if `options` was not provided
+    if (typeof options === 'undefined') {
+        // use default breakpoints
+        breakpoints = {
+            extra_small: 480,
+            small: 768,
+            medium: 992,
+            large: 1200,
+        }
+    }
+    // always add `infinity` breakpoint for upper bound
+    breakpoints.infinity = Infinity
 
     class ResponsiveStore {
         constructor() {
