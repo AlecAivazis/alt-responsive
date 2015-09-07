@@ -3,7 +3,7 @@
 A flux store for easily creating responsive designs in an alt application
 
 
-## Why Use a Flux Store?
+## Why Use a Flux Store for Responsive Behavior?
 
 There are many solutions for cleanly handling responsive designs in React applications. One common paradigm is to wrap a given component in another which is responsible for handling the behavior. While this at first seems good and the "react way", it quickly leads to a lot of boilerplate code in a single component. Also, depending on the implementation, it is possible that many copies of the responsive container would create many different `resize` handlers.
 
@@ -12,7 +12,7 @@ Using a flux store not only reduces the overall noise in a component, but also g
 
 ## Creating the Store
 
-All you need to do is wrap our class in your alt instance's `createStore` method.
+All you need to do is wrap the ResponsiveStore in your alt instance's `createStore` method. 
 ```js
 // stores/ResponsiveStore.js
 
@@ -25,12 +25,21 @@ import ResponsiveStore from 'alt-responsive'
 export default alt.createStore(ResponsiveStore)
 ```
 
-Now your store is ready to use.
+Now your store is ready to use. The store's default breakpoints match common device sizes and are accessible by the following names which are used to indentify them in your view: 
+
+```js
+const default_breakpoints = {
+    extra_small: 480,
+    small: 768,
+    medium: 992,
+    large: 1200,
+}
+```
 
 
 ### Using Custom Breakpoints
 
-To use your own custom breakpoints, import our `create_responsive_store` factory, and pass it a hash of custom breakpoints.  The names of these breakpoints will be used to identify them in your views.
+To use custom breakpoints, import the `create_responsive_store` factory, and pass it an object with the new names and values. 
 ```js
 // stores/ResponsiveStore.js
 
@@ -62,8 +71,8 @@ Now your store is ready to use with custom breakpoints.
 The `ReponsiveStore` provides three attributes to handle responsive behavior (passed in as props to the particular component):
 
 * `current_media_type`: (*string*) The **largest** breakpoint category that the browser satisfies.
-* `browser_less_than`: (*object*) Hash of booleans that describe whether the browser is currently less than a particular breakpoint.
-* `browser_greater_than`: (*object*) Hash of booleans that describe whether the browser is currently greater than a particular breakpoint.
+* `browser_less_than`: (*object*) An object of booleans that indicate whether the browser is currently less than a particular breakpoint.
+* `browser_greater_than`: (*object*) An object of booleans that indicate whether the browser is currently greater than a particular breakpoint.
 
 For example,
 
