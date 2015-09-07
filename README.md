@@ -55,7 +55,6 @@ class MyComponent extends React.Component {
 
 
     render() {
-
         if (this.props.browser_less_than.small) {
             return (<p>
                 You will only see this on small screens!

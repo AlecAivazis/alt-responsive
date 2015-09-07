@@ -17,8 +17,8 @@ var project_paths = require('./config/project_paths')
 /**
  * Remove all ouptut files from previous builds.
  */
-gulp.task('clean', function(cb) {
-    del(project_paths.build_dir, cb)
+gulp.task('clean', function() {
+    return del(project_paths.build_dir)
 })
 
 
