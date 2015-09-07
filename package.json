@@ -12,8 +12,7 @@
     "Monte Mishkin"
   ],
   "scripts": {
-    "build": "gulp build",
-    "install": "npm build"
+    "prepublish": "gulp live-build"
   },
   "peerDependencies": {
     "alt": "^0.16.10"
