@@ -20,7 +20,7 @@ module.exports = {
     root_dir: rute,
     source_dir: source_dir,
     build_dir: path.join(rute, 'build'),
-    entry: path.join(source_dir, 'index.js'),
+    entry: path.join(source_dir, 'responsiveStore.js'),
     unit_tests_glob: path.join(source_dir, 'decorators', '*', 'tests.js'),
     karma_config: path.join(config_dir, 'karma.config.js'),
     webpack_base_config: path.join(config_dir, 'webpack.base.config.js'),
