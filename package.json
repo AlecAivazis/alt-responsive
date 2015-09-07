@@ -1,6 +1,6 @@
 {
   "name": "alt-responsive",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An alt store for easily creating responsive designs in a flux architecture.",
   "main": "build/responsiveStore.js",
   "repository": {
@@ -11,6 +11,10 @@
   "contributors" : [
     "Monte Mishkin"
   ],
+  "scripts": {
+    "build": "gulp build",
+    "install": "npm build"
+  },
   "peerDependencies": {
     "alt": "^0.16.10"
   },
