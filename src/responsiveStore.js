@@ -3,23 +3,21 @@
  */
 
 // third parts imports
-import alt from '../alt_import'
 import MediaQuery from 'mediaquery'
 import {mapValues, transform, keys} from 'lodash'
 
-const breakpoints  = {
-  small: 300,
-  medium: 600,
-  big: 890,
-  huge: 990,
-  infinity: Infinity
-}
 
-const media_queries = MediaQuery.asObject(breakpoints)
 
 class ResponsiveStore {
 
-    constructor() {
+    constructor(breakpoints) {
+
+        // set the breakpoint variables
+        this.breakpoints = breakpoints
+        this.media_queries = media_queries = MediaQuery.asObject(breakpoints)
+
+        // set the initial store state
+
         // the current width of the browser
         const browser_width = window.innerWidth
         // set the initial values
@@ -46,7 +44,7 @@ class ResponsiveStore {
 
 
     get_less_than(browser_width) {
-        return transform(breakpoints, (result, breakpoint, media_type) => {
+        return transform(this.breakpoints, (result, breakpoint, media_type) => {
             // if the breakpoint is a number 
             if (typeof breakpoint === 'number'){
                 // store wether or not it is less than the breakpoint
@@ -59,7 +57,7 @@ class ResponsiveStore {
 
 
     get_greater_than(browser_width) {
-        return transform(breakpoints, (result, breakpoint, media_type) => {
+        return transform(this.breakpoints, (result, breakpoint, media_type) => {
             // if the breakpoint is a number 
             if (typeof breakpoint === 'number'){
                 // store wether or not it is less than the breakpoint
@@ -74,9 +72,9 @@ class ResponsiveStore {
     // get the current media type from the browser width
     get_current_media_type(browser_width) {
         // loop over the keys of the media query
-        const current_media = keys(media_queries).reduce((final_type, current_type) => {
+        const current_media = keys(this.media_queries).reduce((final_type, current_type) => {
             // grab the corresponding query string
-            const query_string = media_queries[current_type]
+            const query_string = this.media_queries[current_type]
             // if the browser matches the string
             if (window.matchMedia(query_string).matches) {
                 // return the current target
@@ -94,5 +92,9 @@ class ResponsiveStore {
     }
 }
 
-export default alt.createStore(ResponsiveStore)
+// the default export is a factory for the store
+default export (breakpoints) => {
+    return new ResponsiveStore(breakpoints)
+}
+
 // end of file
