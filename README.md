@@ -2,9 +2,9 @@
 
 An alt store for easily creating responsive designs in a flux architecture
 
-## Usage
+## Creating the Store
 
-First you must create the singleton store based on your custom breakpoints.
+First create a store based on custom breakpoints using the provided factory. The names of these breakpoints will be used to identify them at a later time.
 ```js
 // stores/ResponsiveStore.js
 
@@ -14,24 +14,31 @@ import alt from 'my-alt-import'
 import create_responsive_store from 'alt-responsive'
 
 // define your own breakpoints
-let breakpoints = {
+// NOTE: these must be in ascending order
+const breakpoints = {
   small: 300,
   medium: 600,
   big: 890,
   huge: 990,
 }
 
-// pass your breakpoints to our factory
-let ResponsiveStoreClass = create_responsive_store(breakpoints)
+// pass your breakpoints to the store factory
+let ResponsiveStore = create_responsive_store(breakpoints)
 // pass the store class to alt's wrapper    
-let ResponsiveStore = alt.createStore(ResponsiveStoreClass)
-
-// export the alt store
-export default ResponsiveStore
+export default alt.createStore(ResponsiveStoreClass)
 ```
 
-Then you can listen to this store in any React component that you wish to be
-responsive.
+Now your store is ready to use. 
+
+## Responding to Browser Width
+
+The ReponsiveStore provides three attributes to handle responsive behavior (passed in as props to the particular component):
+
+* `current_media_type` is a string whose value is equal to the largest breakpoint category that the browser satisfies.
+* `browser_less_than` is an object of booleans that describe wether the browser is currently less than a particular breakpoint
+* `browser_greater_than` is an object of booleans that describe wether the browser is currently greater than a particular breakpoint
+
+For example,
 ```js
 // MyComponent.js
 
@@ -55,20 +62,32 @@ class MyComponent extends React.Component {
 
 
     render() {
-
         if (this.props.browser_less_than.small) {
-            return (<p>
-                You will only see this on small screens!
-            </p>)
+            return (
+              <p>
+                You will only see this on browser width less than the small breakpoint!
+              </p>
+            )
         } else if (this.props.browser_less_than.medium) {
-            return (<p>
-                You will only see this on medium screens!
-            </p>)
+            return (
+              <p>
+                You will only see this on screens less than the medium breakpoint!
+              </p>
+            )
         } else {
-            return (<p>
-                You will only see this on screens above medium size!
-            </p>)
+            return (
+              <p>
+                You will only see this on screens above medium size. 
+                The browsers current media_type is {this.props.current_media_type}.
+              </p>
+            )
         }
     }
 }
 ```
+
+## Why Use a Flux Store?
+
+There are many solutions for cleanly handling responsive designs in React applications. One common paradigm is to wrap a given component in another which is reponsible for handling the behavior. While this at first seems good and the "react way", it quickly leads to a lot of biolerplate code in a single component. Also, depending on the implementation, it is possible that many copies of the responsive container would create many different `resize` handlers. 
+
+Using a flux store not only reduces the overall noise in a component, but also garuentees that only a single event listener is waiting for resize.
