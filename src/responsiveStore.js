@@ -1,12 +1,23 @@
-// third parts imports
 import MediaQuery from 'mediaquery'
 import {transform, keys} from 'lodash'
 
+// the default breakpoints to use for the store
+const default_breakpoints = {
+    extra_small: 480,
+    small: 768,
+    medium: 992,
+    large: 1200,
+}
+
 /**
- * @arg {object} breakpoints - Hash of custom breakpoints.
+ * @arg {object} [options]  - Hash of custom breakpoints.
  * @returns {class} Responsive store class to be passed to `alt.createStore`.
  */
-export default function create_responsive_store_class(breakpoints) {
+// export the factory (but not as default)
+export function create_responsive_store(breakpoints = default_breakpoints) {
+
+    // add `infinity` breakpoint for upper bound
+    breakpoints.infinity = Infinity
 
     class ResponsiveStore {
         constructor() {
@@ -90,5 +101,10 @@ export default function create_responsive_store_class(breakpoints) {
 
     return ResponsiveStore
 }
+
+
+// by default, export the default ResponsiveStore
+export default create_responsive_store()
+
 
 // end of file
