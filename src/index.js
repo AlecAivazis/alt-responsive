@@ -26,3 +26,5 @@ export function create_responsive_store(breakpoints = default_breakpoints) {
 
 // by default, export a ResponsiveStore with the default breakpoints
 export default create_responsive_store()
+
+// end of file

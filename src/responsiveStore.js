@@ -74,8 +74,7 @@ export default class ResponsiveStore {
                 // return the current target
                 return current_type
             }
-            // otherwise the browser does not match
-            // so return the previous type
+            // otherwise the browser does not match so return the previous type
             return final_type
         })
 
