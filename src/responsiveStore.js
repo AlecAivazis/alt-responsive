@@ -14,10 +14,8 @@ const default_breakpoints = {
  * @returns {class} Responsive store class to be passed to `alt.createStore`.
  */
 // export the factory (but not as default)
-export function create_responsive_store(breakpoints) {
+export function create_responsive_store(breakpoints = default_breakpoints) {
 
-    // use the default breakpoints if the user did not provide any
-    breakpoints = breakpoints ? breakpoints : default_breakpoints
     // add `infinity` breakpoint for upper bound
     breakpoints.infinity = Infinity
 
@@ -27,7 +25,7 @@ export function create_responsive_store(breakpoints) {
             this.breakpoints = breakpoints
             this.media_queries = MediaQuery.asObject(breakpoints)
 
-            //// set the initial store state
+            // set the initial store state
 
             // the current width of the browser
             const browser_width = window.innerWidth
