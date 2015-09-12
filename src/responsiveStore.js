@@ -1,6 +1,6 @@
 // third party imports
 import MediaQuery from 'mediaquery'
-import {transform, keys} from 'lodash'
+import {transform, keys, throttle} from 'lodash'
 
 
 // an alt store to manage responsive designs
@@ -23,7 +23,7 @@ export default class ResponsiveStore {
         this.browser_greater_than = this.get_greater_than(browser_width)
 
         // when the browser resizes
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', throttle(() => {
             // the current width of the browser
             const width = window.innerWidth
             // update the store state
@@ -33,7 +33,8 @@ export default class ResponsiveStore {
                 browser_less_than: this.get_less_than(width),
                 browser_greater_than: this.get_greater_than(width),
             })
-        })
+
+        }), 100)
     }
 
 
